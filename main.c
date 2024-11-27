@@ -8,10 +8,16 @@
 
 
 int main(int argc, char **argv){
-    //TODO: pobieranie m i n oraz podstawowe wartosci w przypadku braku podania przy wywolaniu
-    int* grid[] = generate_grid(m, n);
+    //pobieranie m i n oraz podstawowe wartosci w przypadku braku podania przy wywolaniu
+    int m = argc > 1 ? argv[0] : 10;
+    int n = argc > 2 ? argv[1] : m;
+ 
+    int* grid[] = generate_grid(2, 3);
     if(!grid){
         return EXIT_FAILURE;
     }
+
+    //test generowania szkieletu labiryntu
+    print_maze(grid, m, n);
 
 }
