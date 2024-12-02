@@ -41,6 +41,9 @@ void shuffle(direction_t arr[]){
 }
 
 
+
+
+//FIXME: nie zwalniam pamięci w przpadku błędu
 int** visited_init(int m, int n){
     int** arr = malloc(m * sizeof(int*));
     for(int i=0; i < m; i++){
@@ -54,6 +57,38 @@ int** visited_init(int m, int n){
     }
     }
     return arr;
+}
+
+
+void generuj_sciezki(int** grid, int**visited, int i, int j, direction_t directions[], int m, int n, int visited_counter){
+    //i,j są lokalizacją aktualnej komróki
+    //pseudokod
+    if(visited_counter == (m-2)*(n-2)){
+        exit;
+    }
+
+    //mieszanie kierunków aby labirynt był losowy
+    shuffle(directions);
+
+
+    for(int d = 0; d < 4; d++){
+        int nowe_i = i;
+        int nowe_j = j;
+        switch (directions[d]) {
+                case up:    nowe_i = i - 1; break;
+                case down:  nowe_i = i + 1; break;
+                case left:  nowe_j = j - 1; break;
+                case right: nowe_j = j + 1; break;
+            }
+        if(is_valid_cell(m, n, i, j, directions[d]) && !visited[nowe_i][nowe_j]){
+            grid[i][j] = 0; //sciezka
+            grid[nowe_i][nowe_j] = 0; //sciezka
+            visited[nowe_i][nowe_j] = 1;
+            visited_counter++;   
+            generuj_sciezki(grid, visited, nowe_i, nowe_j, directions, m, n, visited_counter);
+        }
+    }
+
 }
 
 
@@ -71,9 +106,10 @@ int main(int argc, char **argv){
     //inicializacja tablicy visited, bazowo wszytkie komórki nie odwiedzone
     //deklaracja możliwych kierunków
     int** visited = visited_init(m, n);
-    int directions[] = {up, right, down, left}; 
+    direction_t directions[] = {up, right, down, left}; 
 
 
+    //TODO: losowo wybieraj początkej i koniec lub wrapper funkcja
     //tworzenie otworów wejściowego (lewy górny) i końcowego (prawy dolny)
     grid[0][1] = 0;
     grid[m-1][n-2] = 0;
@@ -82,8 +118,8 @@ int main(int argc, char **argv){
     visited[m-1][n-2] = 0;
 
 
-    //DFS
-
+    //TODO: implement DFS dla funkcji generuj_sciezki
+    generuj_sciezki(grid, visited, 0, 1, directions, m, n, 1);
     
 
 

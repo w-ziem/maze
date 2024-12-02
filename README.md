@@ -43,3 +43,10 @@ dodatkowa tablica visited o tych samych wymiarach przechowuje informacje o tym c
 4. Jak wszyscy sąsiedzi odwiedzeni to wróć do poprzedniej komórki
 
 Base case?????
+Zewnętrzna warstwa ma pozostac ścianami (unvisited i guess) - do przemyślenia, żeby nie stworzyły się nowe wyjścia
+
+(m-2)*(n-2) to jest ilosc komorek ktore możemy ustawić jako visited, razem z is_valid_cell zapobiega tworzeniu sie nowych wyjść
+
+
+#### //think about me:
+Ile ścieżek się wygeneruje? Czemu?
