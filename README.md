@@ -50,3 +50,7 @@ Zewnętrzna warstwa ma pozostac ścianami (unvisited i guess) - do przemyślenia
 
 #### //think about me:
 Ile ścieżek się wygeneruje? Czemu?
+
+
+# do przerobienia całe podejście XD.
+plan taki, żeby grid był 2 razy większy niż trzeba, ewentualnie struktura cell, przyda sie do liczenia potem najkrotszej sciezki, szczegolnie jezeli bedzie musiala miec wartosc.
