@@ -54,3 +54,9 @@ Ile ścieżek się wygeneruje? Czemu?
 
 # do przerobienia całe podejście XD.
 plan taki, żeby grid był 2 razy większy niż trzeba, ewentualnie struktura cell, przyda sie do liczenia potem najkrotszej sciezki, szczegolnie jezeli bedzie musiala miec wartosc.
+
+
+## stuktura komorki
+
+komorka ma wartosc przejscia, checker is_visited do DFS oraz tablice walls[4] przechowujaca 1, kiedy sciana istnieje oraz 0 kiedy sciana nie istnieje w kolejności {up, right, down, left}
+

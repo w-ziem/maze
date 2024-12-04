@@ -12,7 +12,7 @@ void free_grid(cell_t** grid, int m);
 
 int is_valid_cell(cell_t** grid, int m, int n, int row, int col);
 
-void remove_walls(cell_t* current, cell_t* next, direction_t d);
+void remove_wall(cell_t* current, cell_t* next, direction_t d);
 
 
 #endif
