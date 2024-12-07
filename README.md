@@ -60,3 +60,5 @@ plan taki, żeby grid był 2 razy większy niż trzeba, ewentualnie struktura ce
 
 komorka ma wartosc przejscia, checker is_visited do DFS oraz tablice walls[4] przechowujaca 1, kiedy sciana istnieje oraz 0 kiedy sciana nie istnieje w kolejności {up, right, down, left}
 
+# kolejne kroki
+1. dodanie losowej warości dla komórki
