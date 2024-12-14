@@ -1,4 +1,3 @@
-
 #ifndef __DIRECTION_T_H__
 #define __DIRECTION_T_H__
 

@@ -7,9 +7,10 @@
 
 typedef struct{
     int walls[4]; //up, right, down, left
-    double value; //TODO: dodać losowa wartość przejścia
+    double value;
     int is_visited;
 } cell_t;
 
 
 #endif
+
