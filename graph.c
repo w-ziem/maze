@@ -11,7 +11,7 @@ void create_adjacency_matrix(cell_t** grid, int m, int n, double** matrix) {
     // Inicjalizacja macierzy sąsiedztwa
     for (int i = 0; i < total_vertices; i++) {
         for (int j = 0; j < total_vertices; j++) {
-            matrix[i][j] = (i == j) ? 0.0 : DBL_MAX; //DBL_MAX będzie dla nas oznaczać brak przejścia
+        matrix[i][j] = (i == j) ? 0.0 : DBL_MAX; //DBL_MAX będzie dla nas oznaczać brak przejścia
         }
     }
 

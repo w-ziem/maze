@@ -41,7 +41,7 @@ int main(int argc, char **argv){
     if(n*m<=15){
         print_matrix(matrix, m*n);
     } else{
-        printf("Macierz za duża aby wyświetlić (%d x %d)\n", n, m);
+        printf("Macierz za duża aby wyświetlić (%d x %d)\n", n*m, m*n);
     }
     free_grid(grid, m);
     return EXIT_SUCCESS;
