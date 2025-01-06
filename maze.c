@@ -172,7 +172,7 @@ void ensure_full_coverage(cell_t** grid, int m, int n, direction_t *directions) 
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
             if (grid[i][j].is_visited==0) {
-                grid[i][j].walls[1] = 0;
+                // grid[i][j].walls[1] = 0; co ta linijka kodu tutaj robi XDDDDDDDDDD
                 generate_paths(grid, m, n, directions, i, j);
             }
         }

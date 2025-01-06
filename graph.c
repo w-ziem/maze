@@ -3,6 +3,7 @@
 #include <float.h> // dla DBL_MAX (nieskończoność)
 #include "cell.h"
 #include "graph.h"
+#define INF DBL_MAX
 
 // Tworzenie macierzy sąsiedztwa
 void create_adjacency_matrix(cell_t** grid, int m, int n, double** matrix) {
@@ -11,9 +12,25 @@ void create_adjacency_matrix(cell_t** grid, int m, int n, double** matrix) {
     // Inicjalizacja macierzy sąsiedztwa
     for (int i = 0; i < total_vertices; i++) {
         for (int j = 0; j < total_vertices; j++) {
-        matrix[i][j] = (i == j) ? 0.0 : DBL_MAX; //DBL_MAX będzie dla nas oznaczać brak przejścia
+        matrix[i][j] = (i == j) ? 0.0 : INF; //INF będzie dla nas oznaczać brak przejścia (nieskończony koszt przejścia)
         }
     }
+
+/////////////////////////////////////////////////////////////
+    //debug
+    printf("Debug ścian:\n");
+    printf("Komórka (0,0):\n");
+    printf("- ściana góra (0): %d\n", grid[0][0].walls[0]);
+    printf("- ściana prawo (1): %d\n", grid[0][0].walls[1]);
+    printf("- ściana dół (2): %d\n", grid[0][0].walls[2]);
+    printf("- ściana lewo (3): %d\n", grid[0][0].walls[3]);
+    
+    printf("\nKomórka (0,1):\n");
+    printf("- ściana góra (0): %d\n", grid[0][1].walls[0]);
+    printf("- ściana prawo (1): %d\n", grid[0][1].walls[1]);
+    printf("- ściana dół (2): %d\n", grid[0][1].walls[2]);
+    printf("- ściana lewo (3): %d\n", grid[0][1].walls[3]);
+/////////////////////////////////////////////////////////////
 
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
@@ -22,26 +39,26 @@ void create_adjacency_matrix(cell_t** grid, int m, int n, double** matrix) {
             // Góra
             if (grid[i][j].walls[0] == 0 && i > 0) { 
                 int neighbor = (i - 1) * n + j;
-                matrix[current][neighbor] = grid[i][j].value;
-                matrix[neighbor][current] = grid[i][j].value; //symetria grafu
+                matrix[current][neighbor] = grid[i-1][j].value;
+                matrix[neighbor][current] = grid[i][j].value; 
             }
             // Prawo
             if (grid[i][j].walls[1] == 0 && j < n - 1) {
                 int neighbor = i * n + (j + 1);
-                matrix[current][neighbor] = grid[i][j].value;
-                matrix[neighbor][current] = grid[i][j].value; //symetria grafu
+                matrix[current][neighbor] = grid[i][j+1].value;
+                matrix[neighbor][current] = grid[i][j].value; 
             }
             // Dół
             if (grid[i][j].walls[2] == 0 && i < m - 1) {
                 int neighbor = (i + 1) * n + j;
-                matrix[current][neighbor] = grid[i][j].value;
-                matrix[neighbor][current] = grid[i][j].value; //symetria grafu
+                matrix[current][neighbor] = grid[i+1][j].value;
+                matrix[neighbor][current] = grid[i][j].value; 
             }
             // Lewo
             if (grid[i][j].walls[3] == 0 && j > 0) {
                 int neighbor = i * n + (j - 1);
-                matrix[current][neighbor] = grid[i][j].value;
-                matrix[neighbor][current] = grid[i][j].value; //symetria grafu
+                matrix[current][neighbor] = grid[i][j-1].value;
+                matrix[neighbor][current] = grid[i][j].value; 
             }
         }
     }

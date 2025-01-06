@@ -3,6 +3,7 @@
 #include <time.h>
 #include "maze.h"
 #include "graph.h"
+#include "path.h"
 //random maze gnerator using recursive DFS
 
 
@@ -25,6 +26,9 @@ int main(int argc, char **argv){
     //tworzenie otworów wejściowego (lewy górny) i końcowego (prawy dolny)
     grid[0][0].walls[0] = 0;
     grid[m-1][n-1].walls[2] = 0;
+    int start_index = 0;
+    int end_index = m * n - 1;
+
 
     //tworzenie ścieżek
     ensure_full_coverage(grid, m, n, directions);
@@ -43,6 +47,23 @@ int main(int argc, char **argv){
     } else{
         printf("Macierz za duża aby wyświetlić (%d x %d)\n", n*m, m*n);
     }
+
+    //szukanie najktórszej ścieżki
+    printf("Szukanie najkrószej ścieżki...\n");
+    int* shortest_path = malloc(m*n * sizeof(int));
+    int path_length;
+    find_shortest_path(matrix, m * n, start_index, end_index, shortest_path, &path_length);
+
+
+    // printf("Najkrótsza ścieżka: ");
+    // for(int i = 0; i < path_length; i++) {
+    //     int x = shortest_path[i] / n;    // numer wiersza
+    //     int y = shortest_path[i] % n;    // numer kolumny
+    //     printf("(%d,%d) ", x, y);
+    // }
+    // printf("\n");
+    print_shortest_path(matrix, n, shortest_path, path_length);
+
     free_grid(grid, m);
     return EXIT_SUCCESS;
 
