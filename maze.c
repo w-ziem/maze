@@ -4,13 +4,13 @@
 #include "cell.h"
 #include "direction.h"
 
-
+// losowanie wartości dla komórki
 double get_rand(double min, double max){
     return min + ((double)rand() / RAND_MAX) * (max - min);
 }
 
 
-
+// generowanie "planszy" - wszystkie ściany są obecne
 cell_t** generate_grid(int m, int n){
 
     cell_t** grid = malloc(m * sizeof(cell_t*)); // miejsce dla wierszy
@@ -21,13 +21,14 @@ cell_t** generate_grid(int m, int n){
     }
 
     for(int row = 0; row < m; row++){
-        grid[row] = malloc(n*sizeof(cell_t));
+        grid[row] = malloc(n*sizeof(cell_t)); //miejsce dla kolumn w każdym wierszu
         if(!grid[row]){
             fprintf(stderr, "Błąd alokaji pamięci dla kolumny: %d.", row);
             free(grid);
             return NULL;
         }
 
+        //inicjalizacja listy - wszystkie komórki nieodwiedzone oraz wszystkie ściany obecne, przypisywanie losowej wartości
         for(int col = 0; col < n; col++){
             grid[row][col].is_visited = 0;
             for(int k=0; k < 4; k++){
@@ -41,7 +42,7 @@ cell_t** generate_grid(int m, int n){
     }
 
 
-
+// wypisywanie labiryntu
 void print_maze(cell_t** grid, int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         // Górne ściany
@@ -61,7 +62,7 @@ void print_maze(cell_t** grid, int rows, int cols) {
             else
                 printf(" ");  // Brak lewej ściany
             if(rows*cols <= 15){
-                printf("    "); //wyświetlania komórki jako pustego pola
+                printf("    "); //wyświetlania komórki jako pustego pola bo wyświetlana jest macierz
             } else{
             printf("%.2f", grid[i][j].value); //wyświetlanie komórki z wartościami przejścia
             }
@@ -142,7 +143,7 @@ void generate_paths(cell_t** grid, int m, int n, direction_t *directions, int i,
     //mieszanie kierunków aby labirynt był losowy
     shuffle(directions);
 
-
+    //przeszukiwanie kierunków
     for(int d = 0; d < 4; d++){
         int next_i = i;
         int next_j = j;
@@ -162,18 +163,22 @@ void generate_paths(cell_t** grid, int m, int n, direction_t *directions, int i,
 
             //rekurencja dla nowej komórki
             generate_paths(grid, m, n, directions, next_i, next_j);
-        }
-    }
-}
+            
+            //backtracking, aby ścieżka była kompletna
+            for(int new_d = 0; new_d < 4; new_d++){
+                next_i = i;
+                next_j = j;
+                switch (directions[new_d]) {
+                        case up:    next_i = i - 1; break;
+                        case down:  next_i = i + 1; break;
+                        case left:  next_j = j - 1; break;
+                        case right: next_j = j + 1; break; 
+                    }
 
-
-// dla każdej nieodwiedzonej komórki wywołuje generowanie ścieżek, co zapobiega pominięciu niektórych komórek, szególnie przy dużych labiryntach
-void ensure_full_coverage(cell_t** grid, int m, int n, direction_t *directions) {
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            if (grid[i][j].is_visited==0) {
-                // grid[i][j].walls[1] = 0; co ta linijka kodu tutaj robi XDDDDDDDDDD
-                generate_paths(grid, m, n, directions, i, j);
+                if (is_valid_cell(grid, m, n, next_i, next_j)){
+                remove_wall(&grid[i][j], &grid[next_i][next_j], directions[new_d]);
+                generate_paths(grid, m, n, directions, next_i, next_j);
+                }
             }
         }
     }

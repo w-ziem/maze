@@ -16,21 +16,6 @@ void create_adjacency_matrix(cell_t** grid, int m, int n, double** matrix) {
         }
     }
 
-/////////////////////////////////////////////////////////////
-    //debug
-    printf("Debug ścian:\n");
-    printf("Komórka (0,0):\n");
-    printf("- ściana góra (0): %d\n", grid[0][0].walls[0]);
-    printf("- ściana prawo (1): %d\n", grid[0][0].walls[1]);
-    printf("- ściana dół (2): %d\n", grid[0][0].walls[2]);
-    printf("- ściana lewo (3): %d\n", grid[0][0].walls[3]);
-    
-    printf("\nKomórka (0,1):\n");
-    printf("- ściana góra (0): %d\n", grid[0][1].walls[0]);
-    printf("- ściana prawo (1): %d\n", grid[0][1].walls[1]);
-    printf("- ściana dół (2): %d\n", grid[0][1].walls[2]);
-    printf("- ściana lewo (3): %d\n", grid[0][1].walls[3]);
-/////////////////////////////////////////////////////////////
 
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {

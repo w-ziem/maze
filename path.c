@@ -76,14 +76,6 @@ void find_shortest_path(double** matrix, int size, int start, int end, int* path
     free(visited);
 }
 
-
-
-void ensure_start_end_connectivity(cell_t** grid, int m, int n, double** matrix){
-    return;
-}
-
-
-
 void print_shortest_path(double** matrix, int n, int* shortest_path, int path_length) {
     printf("Najkrótsza ścieżka: ");
     if (path_length == 0) {

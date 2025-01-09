@@ -1,5 +1,5 @@
 a.out: main.o maze.o graph.o path.o
-	gcc -Wall -pedantic -Wextra -fsanitize=address main.o maze.o graph.o path.o
+	gcc -Wall -pedantic -Wextra main.o maze.o graph.o path.o
 
 main.o: main.c maze.o graph.o path.o
 	gcc -c -Wall -pedantic main.c 

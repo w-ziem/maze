@@ -30,17 +30,22 @@ int main(int argc, char **argv){
     int end_index = m * n - 1;
 
 
-    //tworzenie ścieżek
-    ensure_full_coverage(grid, m, n, directions);
+    //tworzenie ścieżek zaczynając od komórki wejściowej
+    generate_paths(grid, m, n, directions, 0, 0);
+
     //wyświetlanie labiryntu
     print_maze(grid, m, n);
+
     //alokacja pamięci dla macierzy 
     double** matrix = allocate_matrix(m*n);
     if(!matrix){
         return EXIT_FAILURE;
     }
+    
     //tworzenie macierzy sąsiedztwa
     create_adjacency_matrix(grid, m, n, matrix);
+
+    
     //wyświetlanie macierzy     
     if(n*m<=15){
         print_matrix(matrix, m*n);
@@ -54,17 +59,9 @@ int main(int argc, char **argv){
     int path_length;
     find_shortest_path(matrix, m * n, start_index, end_index, shortest_path, &path_length);
 
-
-    // printf("Najkrótsza ścieżka: ");
-    // for(int i = 0; i < path_length; i++) {
-    //     int x = shortest_path[i] / n;    // numer wiersza
-    //     int y = shortest_path[i] % n;    // numer kolumny
-    //     printf("(%d,%d) ", x, y);
-    // }
-    // printf("\n");
-    print_shortest_path(matrix, n, shortest_path, path_length);
+    print_shortest_path(matrix, n, shortest_path, path_length); 
 
     free_grid(grid, m);
     return EXIT_SUCCESS;
 
-}
+} 
